@@ -16,12 +16,12 @@ export default class TaskList extends Component {
 
   onLabelClick = (id ) => {
     this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id === id)
-      if ( todoData[idx].className === null) {
-        todoData[idx].className = "completed"
+      const arr = todoData.filter((el) => el.id === id)
+      if ( arr[0].className === null) {
+        arr[0].className = "completed"
       }
       else {
-        todoData[idx].className = null
+        arr[0].className = null
       }
       return {
         todoData: todoData
@@ -31,10 +31,8 @@ export default class TaskList extends Component {
 
   onDelete = (id) => {
     this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id === id)
-      const before = todoData.slice(0,idx)
-      const after = todoData.slice(idx+1)
-      const newArr = [...before,...after]
+      const newArr = todoData.filter((el) => el.id !== id)
+
       return {
         todoData: newArr
       }
