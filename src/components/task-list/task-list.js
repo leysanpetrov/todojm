@@ -5,6 +5,8 @@ import Task from "../task/task"
 
 export default class TaskList extends Component {
 
+
+
  state = {
    todoData: [
      { label: 'Completed task', className: null, id: 1 },
@@ -12,6 +14,10 @@ export default class TaskList extends Component {
      { label: 'Active task', className: null, id: 3 }
    ],
    done: false
+ }
+
+  cratedTodoItem = (text) => {
+
  }
 
   onLabelClick = (id ) => {
@@ -41,7 +47,6 @@ export default class TaskList extends Component {
 
   render() {
     const { todoData } = this.state
-
     const elements = todoData.map((item) => {
       const { id, label, className } = item
         return (
