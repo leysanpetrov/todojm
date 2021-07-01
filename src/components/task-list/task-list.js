@@ -16,9 +16,6 @@ export default class TaskList extends Component {
    done: false
  }
 
-  cratedTodoItem = (text) => {
-
- }
 
   onLabelClick = (id ) => {
     this.setState(({ todoData }) => {
