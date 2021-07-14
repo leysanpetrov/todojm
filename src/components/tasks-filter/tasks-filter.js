@@ -1,6 +1,5 @@
-import React, {Component} from "react"
-import "./tasks-filter.css"
-
+import React, { Component } from 'react'
+import './tasks-filter.css'
 
 export default class TasksFilter extends Component {
 
@@ -10,15 +9,15 @@ export default class TasksFilter extends Component {
     { name: 'completed', label: 'Completed' }
   ]
 
-  render() {
+  render () {
     const { filter, onFilterChange } = this.props
     const buttons = this.buttons.map(({ name, label }) => {
       const isActive = filter === name
-      const clazz = isActive ? "selected" : null
+      const clazz = isActive ? 'selected' : null
       return (
         <li key={label}>
-          <button className={ clazz }
-          onClick={() => onFilterChange(name)}>
+          <button className={clazz}
+                  onClick={() => onFilterChange(name)}>
             {label}
           </button>
         </li>
