@@ -1,55 +1,56 @@
-import React, {Component} from "react";
+import React, { Component } from 'react'
 import NewTaskForm from '../new-task-form/new-task-form'
 import TaskList from '../task-list/task-list'
 import Footer from '../footer/footer'
-import "./app.css"
+import './app.css'
 
+export default class App extends Component {
 
-export default class App extends Component{
-  maxId = 100;
+  maxId = 100
 
   state = {
     todoData: [
-      this.createTodoItem('Completed task'),
-      this.createTodoItem('Editing task'),
-      this.createTodoItem('Active task')
+      this.createTodoItem('Completed task', Date.now()),
+      this.createTodoItem('Editing task', Date.now()),
+      this.createTodoItem('Active task', Date.now())
     ],
-    filter: "all"
+    filter: 'all'
   }
 
-  createTodoItem(label){
+  createTodoItem (label, date) {
     return {
       label,
+      date,
       className: null,
       id: this.maxId++,
     }
   }
 
   addItem = (text) => {
-    const newItem = this.createTodoItem(text)
+    const dateNow = Date.now()
+    const newItem = this.createTodoItem(text, dateNow)
     this.setState(({ todoData }) => {
       const newArr = [
         ...todoData,
         newItem
       ]
       return {
-        todoData: newArr
+        todoData: newArr,
       }
     })
   }
 
-  onLabelClick = (id ) => {
+  onLabelClick = (id) => {
     this.setState(({ todoData }) => {
       const arr = todoData.filter((el) => el.id === id)
-      if ( arr[0].className === null) {
-        arr[0].className = "completed"
-      }
-      else {
+      if (arr[0].className === null) {
+        arr[0].className = 'completed'
+      } else {
         arr[0].className = null
       }
       return {
         todoData: todoData
-      };
+      }
     })
   }
 
@@ -63,45 +64,46 @@ export default class App extends Component{
   }
 
   onFilterChange = (filter) => {
-    this.setState({filter});
-}
+    this.setState({ filter })
+  }
 
-  filter(items, filter) {
-    switch(filter) {
+  filter (items, filter) {
+    switch (filter) {
       case 'all':
-        return items;
+        return items
       case 'active':
-        return items.filter((item) => item.className !== "completed");
+        return items.filter((item) => item.className !== 'completed')
       case 'completed':
-        return items.filter((item) => item.className === "completed");
-      default: return items
+        return items.filter((item) => item.className === 'completed')
+      default:
+        return items
     }
   }
 
   clearCompleted = () => {
-    this.setState(({todoData}) => {
-      const newArr = todoData.filter((el) => el.className !=="completed")
+    this.setState(({ todoData }) => {
+      const newArr = todoData.filter((el) => el.className !== 'completed')
       return {
         todoData: newArr
       }
     })
   }
 
-  render() {
+  render () {
     const { todoData, filter } = this.state
     const visibleItem = this.filter(todoData, filter)
-    const countActive = todoData.filter((el) => el.className !=="completed").length
+    const countActive = todoData.filter((el) => el.className !== 'completed').length
     return (
       <section className="todoapp">
-        <NewTaskForm onItemAdded={ this.addItem } />
+        <NewTaskForm onItemAdded={this.addItem}/>
         <section className="main">
-          <TaskList todos={ visibleItem }
-                    doDone={ this.onLabelClick }
-                    onDeleteClick={ this.onDelete }/>
+          <TaskList todos={visibleItem}
+                    doDone={this.onLabelClick}
+                    onDeleteClick={this.onDelete}/>
           <Footer filter={filter}
                   onFilterChange={this.onFilterChange}
                   clearCompleted={this.clearCompleted}
-                  countActive={ countActive }/>
+                  countActive={countActive}/>
         </section>
       </section>
     )

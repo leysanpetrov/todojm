@@ -3,7 +3,6 @@ import './new-task-form.css'
 
 export default class NewTaskForm extends Component {
 
-  // let dateOfCreate = new Date();
   state = {
     label: ''
   }
@@ -31,11 +30,10 @@ export default class NewTaskForm extends Component {
                  onChange={this.onChange}
                  placeholder="What needs to be done?"
                  autoFocus
-                 value={this.state.label}/>
-          {/*<span>{dateOfCreate}</span>*/}
+                 value={this.state.label}
+          />
         </form>
       </header>
     )
   }
-
 }

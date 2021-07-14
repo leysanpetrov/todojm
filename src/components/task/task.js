@@ -1,37 +1,36 @@
-import React, {Component} from "react";
-import "../../index.js"
-import "./task.css"
-import { formatDistanceToNow } from "date-fns";
+import React, { Component } from 'react'
 
-// import NewTaskForm from '../new-task-form/new-task-form';
+import '../../index.js'
+import './task.css'
+import { formatDistanceToNow } from 'date-fns'
+import PropTypes from 'prop-types'
 
 export default class Task extends Component {
 
-  render () {
-   const { label, doDone } = this.props;
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    date: PropTypes.number.isRequired,
+    doDone: PropTypes.func.isRequired
+  }
 
-    let resultData = formatDistanceToNow(
-      new Date(2015, 0, 1, 0, 0, 15),
-      {includeSeconds: true}
+  render () {
+    const { label, date, doDone } = this.props
+    let resultDate = formatDistanceToNow(
+      date,
+      { includeSeconds: true }
     )
 
     return (
       <label>
         <span className="description"
-              onClick={ doDone }
+              onClick={doDone}
         >
           {label}
         </span>
-        <span className="created">created { resultData } seconds ago</span>
+        <span className="created">created {resultDate} ago</span>
       </label>
     )
   }
 }
 
-  // Время создания задачи должно быть классом Date
-  // function getDateOfCreate () {
-  //   dateOfCreate
-  // }
-
-  // let dateOfCreate = new Date();
 
