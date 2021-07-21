@@ -1,51 +1,36 @@
-import React, { Component } from 'react'
-import '../../index'
-import './task-list.css'
-import Task from '../task/task'
-import PropTypes from 'prop-types'
+import React from 'react';
+import '../../index';
+import './task-list.css';
+import PropTypes from 'prop-types';
+import Task from '../task/task';
 
-export default class TaskList extends Component {
-
-  static defaultProps = {
-    todos: [],
-    doDone: () => {},
-    onDeleteClick: () => {}
-  }
-
-  static propTypes = {
-    todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-    doDone: PropTypes.func.isRequired,
-    onDeleteClick: PropTypes.func.isRequired
-  }
-
-  render () {
-    const { todos, doDone, onDeleteClick } = this.props
-    const elements = todos.map((item) => {
-        const { id, label, className, date } = item
-        return (
-          <li key={id} className={className}>
-            <div className="view">
-              <input className="toggle" type="checkbox"/>
-              <Task label={label}
-                    date={date}
-                    doDone={() => doDone(id)}
-              />
-              <button className="icon icon-edit"
-              >
-              </button>
-              <button className="icon icon-destroy"
-                      onClick={() => onDeleteClick(id)}>
-              </button>
-            </div>
-            <input type="text" className="edit" value="Editing task"/>
-          </li>
-        )
-      }
-    )
+const TaskList = ({ todos, doDone, onDeleteClick }) => {
+  const elements = todos.map((item) => {
+    const { id, label, className, date } = item;
     return (
-      <ul className="todo-list">
-        {elements}
-      </ul>
-    )
-  }
-}
+      <li key={id} className={className}>
+        <div className="view">
+          <input className="toggle" type="checkbox" />
+          <Task label={label} date={date} doDone={() => doDone(id)} />
+          <button aria-label="icon-edit" type="button" className="icon icon-edit" />
+          <button
+            aria-label="icon-destroy"
+            type="button"
+            className="icon icon-destroy"
+            onClick={() => onDeleteClick(id)}
+          />
+        </div>
+        <input type="text" className="edit" value="Editing task" />
+      </li>
+    );
+  });
+  return <ul className="todo-list">{elements}</ul>;
+};
+
+TaskList.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+  doDone: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
+};
+
+export default TaskList;
