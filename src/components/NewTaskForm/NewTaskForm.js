@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import './new-task-form.css';
-// import PropTypes from 'prop-types'
-// import Task from '../task/task'
-// import Footer from '../footer/footer'
+import './NewTaskForm.css';
 
 export default class NewTaskForm extends Component {
 
@@ -12,9 +9,8 @@ export default class NewTaskForm extends Component {
 
   onSubmit = (ev) => {
     ev.preventDefault();
-    const { onItemAdded } = this.props;
-    const { label } = this.state;
-    onItemAdded(label);
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.onItemAdded(this.state.label);
     this.setState({
       label: '',
     });
@@ -27,7 +23,6 @@ export default class NewTaskForm extends Component {
   };
 
   render() {
-    const { label } = this.state;
     return (
       <header className="header">
         <h1>todos</h1>
@@ -36,8 +31,8 @@ export default class NewTaskForm extends Component {
             className="new-todo"
             onChange={this.onChange}
             placeholder="What needs to be done?"
-            // autoFocus
-            value={label}
+            // eslint-disable-next-line react/destructuring-assignment
+            value={this.state.label}
           />
         </form>
       </header>

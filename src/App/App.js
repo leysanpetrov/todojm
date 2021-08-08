@@ -1,8 +1,8 @@
-import { Component } from 'react';
-import NewTaskForm from '../new-task-form/new-task-form';
-import TaskList from '../task-list/task-list';
-import Footer from '../footer/footer';
-import './app.css';
+import React, { Component } from 'react';
+import NewTaskForm from '../components/NewTaskForm/NewTaskForm';
+import TaskList from '../TaskList/TaskList';
+import Footer from '../Footer/Footer';
+import './App.css';
 
 export default class App extends Component {
   maxId = 100;
@@ -17,6 +17,9 @@ export default class App extends Component {
   };
 
   addItem = (text) => {
+    if ( !text.trim().length ) {
+      return
+    }
     const dateNow = Date.now();
     const newItem = this.createTodoItem(text, dateNow);
     this.setState(({ todoData }) => {
@@ -27,13 +30,13 @@ export default class App extends Component {
     });
   };
 
-  onLabelClick = (id) => {
+  onCheckboxClick = (id) => {
     this.setState(({ todoData }) => {
-      const arr = todoData.filter((el) => el.id === id);
-      if (arr[0].className === null) {
-        arr[0].className = 'completed';
+      const item = todoData.find((el) => el.id === id);
+      if (!item.completed) {
+        item.completed = true;
       } else {
-        arr[0].className = null;
+        item.completed = false;
       }
       return {
         todoData,
@@ -50,37 +53,59 @@ export default class App extends Component {
     });
   };
 
+  onEdit = (id) => {
+    this.setState(({ todoData }) => {
+      const task = todoData.find((el) => el.id === id);
+      if (task.disabled) {
+        task.disabled = false;
+      }
+      else task.disabled = true;
+      return task.disabled
+    });
+  }
+
   onFilterChange = (filter) => {
     this.setState({ filter });
   };
 
   clearCompleted = () => {
     this.setState(({ todoData }) => {
-      const newArr = todoData.filter((el) => el.className !== 'completed');
+      const newArr = todoData.filter((el) => el.completed !== true);
       return {
         todoData: newArr,
       };
     });
   };
 
-  filter(items, filter) {
+  filter = (items, filter) => {
     switch (filter) {
       case 'all':
         return items;
       case 'active':
-        return items.filter((item) => item.className !== 'completed');
+        return items.filter((item) => item.completed !== true);
       case 'completed':
-        return items.filter((item) => item.className === 'completed');
+        return items.filter((item) => item.completed === true);
       default:
         return items;
     }
+  }
+
+  doDisabled = (event,id) => {
+    this.setState(({ todoData }) => {
+      const task = todoData.find((el) => el.id === id);
+      if (event.keyCode === 13) {
+        task.disabled = true;
+      }
+      return task.disabled
+    });
   }
 
   createTodoItem(label, date) {
     const todoItem = {
       label,
       date,
-      className: null,
+      completed: false,
+      disabled: true,
       id: (this.maxId += 1),
     };
     return todoItem;
@@ -89,12 +114,17 @@ export default class App extends Component {
   render() {
     const { todoData, filter } = this.state;
     const visibleItem = this.filter(todoData, filter);
-    const countActive = todoData.filter((el) => el.className !== 'completed').length;
+    const countActive = todoData.filter((el) => el.completed !== true).length;
     return (
       <section className="todoapp">
         <NewTaskForm onItemAdded={this.addItem} />
         <section className="main">
-          <TaskList todos={visibleItem} doDone={this.onLabelClick} onDeleteClick={this.onDelete} />
+          <TaskList todos={visibleItem}
+                    taskDone={this.onCheckboxClick}
+                    onDeleteClick={this.onDelete}
+                    onEditClick={this.onEdit}
+                    doDisabled={this.doDisabled}
+            />
           <Footer
             filter={filter}
             onFilterChange={this.onFilterChange}

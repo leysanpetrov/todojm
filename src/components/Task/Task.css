@@ -5,9 +5,15 @@
     transition: color 0.4s;
     font-weight: 400;
     color: #4d4d4d;
+    border: none;
+    margin-right: 8px;
 }
 
-.todo-list li.completed label .description {
+.todo-list li.task__border label .description {
+    border: 1px solid #746e6e;
+}
+
+.todo-list li.task__completed label .description {
     color: #cdcdcd;
     text-decoration: line-through;
 }
