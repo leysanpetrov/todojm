@@ -12,12 +12,12 @@ const element = todos.map((item) => {
     if (!completed) {
       doClassName += " task";
     } else {
-      doClassName += " task__completed";
+      doClassName += " task_completed";
     }
     if (disabled) {
       doClassName += " task";
     } else {
-      doClassName += " task__border";
+      doClassName += " task_border";
     }
 
   return (

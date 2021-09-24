@@ -3,12 +3,15 @@ import './Task.css'
 import '../../TaskList/TaskList.css'
 import { formatDistanceToNow } from 'date-fns'
 import PropTypes from 'prop-types'
+import TaskTimer from '../TaskTimer/TaskTimer'
 
 export default class Task extends Component {
 
   state = {
     // eslint-disable-next-line react/destructuring-assignment
-    labelInner: this.props.label
+    labelInner: this.props.label,
+    play: true,
+    // pause: false
   }
 
   onChange = (ev) => {
@@ -24,8 +27,17 @@ export default class Task extends Component {
     }
   }
 
+  timerClick = () => {
+    console.log("timerClick")
+    this.setState({
+      play: false,
+      // pause: true
+    })
+  }
+
   render () {
     const { id, date, taskDone, disabled, completed, doDisabled } = this.props
+    const {labelInner, play } = this.state
     const resultDate = formatDistanceToNow(date, { includeSeconds: true })
     return (
       <>
@@ -40,9 +52,11 @@ export default class Task extends Component {
                  onChange={this.onChange}
                  onKeyUp={(event) => doDisabled(event, id)}
                  onKeyDown={this.deleteEmptyLabel}
-            // eslint-disable-next-line react/destructuring-assignment
-                 value={this.state.labelInner}
+                 value={ labelInner }
           />
+          <TaskTimer play={ play }
+                     // pause={ pause }
+                     timerClick={this.timerClick}/>
           <span className="created">created {resultDate} ago</span>
         </label>
       </>

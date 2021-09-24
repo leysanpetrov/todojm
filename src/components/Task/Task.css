@@ -9,11 +9,11 @@
     margin-right: 8px;
 }
 
-.todo-list li.task__border label .description {
+.todo-list li.task_border label .description {
     border: 1px solid #746e6e;
 }
 
-.todo-list li.task__completed label .description {
+.todo-list li.task_completed label .description {
     color: #cdcdcd;
     text-decoration: line-through;
 }
@@ -22,3 +22,4 @@
     font-size: 13px;
     color: gray;
 }
+
