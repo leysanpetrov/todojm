@@ -2,6 +2,7 @@
   "extends": [
     "airbnb",
     "airbnb/hooks",
+    "plugin:react-hooks/recommended",
     "eslint-config-prettier",
     "prettier"
   ],
@@ -12,16 +13,16 @@
     "jest": true
   },
   "rules": {
-    "curly": ["error"],
+    "curly": ["warn"],
     "max-depth": ["warn", 4],
     "id-length": ["warn", { "exceptions": ["i", "j"], "min": 2 }],
-    "no-lonely-if": ["error"],
-    "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
+    "no-lonely-if": ["warn"],
+    "no-plusplus": ["warn", {"allowForLoopAfterthoughts": true}],
     "no-restricted-syntax": "off",
     "class-methods-use-this": "off",
     "jsx-a11y/href-no-hash": ["off"],
     "jsx-a11y/anchor-is-valid": ["off"],
-    "jsx-a11y/label-has-associated-control": [ "error", {
+    "jsx-a11y/label-has-associated-control": [ "warn", {
       "assert": "either"
     }],
     "react/state-in-constructor": ["off"],
@@ -30,7 +31,9 @@
     "react/prop-types": 0,
     "import/no-cycle": [ 0 , {"ignoreExternal": false}],
     "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "react": {

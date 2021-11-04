@@ -1,25 +1,23 @@
 import React from "react";
 import "./TaskTimer.css"
 
-const TaskTimer = ({ play, timerClick }) => {
-
-
+const TaskTimer = ({isPause, timer, start, pause}) => {
     const buttonPlay = <button aria-label="icon-play"
                                type="button"
-                               className="icon icon-play"
-                               onClick={() => console.log("Hi")} />
+                               className="icon-play"
+                               onClick={()=>start(isPause, timer)} />
     const buttonPause = <button aria-label="icon-pause"
                                 type="button"
-                                className="icon icon-pause"
-                                onClick={ timerClick }
+                                className="icon-pause"
+                                onClick={()=>pause(isPause, timer)}
                                 />
-    const buttonActive = play ? buttonPlay : buttonPause
+    const buttonActive = isPause ? buttonPlay : buttonPause
 
     return (
-      <span className="description">
+      <div className="task-timer">
         { buttonActive }
-                  12:25
-                </span>
+        <div className="timer-text">{ timer }</div>
+      </div>
     )
   }
 

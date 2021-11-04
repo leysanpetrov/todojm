@@ -25,11 +25,13 @@ const element = todos.map((item) => {
       <div className="view">
         <Task label={label}
               date={date}
-              taskDone={() => taskDone(id)} id={id}
+              taskDone={() => taskDone(id)}
+              id={id}
               disabled={ disabled }
               completed={ completed }
               doDisabled={ doDisabled }
               onDeleteClick={ onDeleteClick }
+
         />
         <button aria-label="icon-edit"
                 type="button"

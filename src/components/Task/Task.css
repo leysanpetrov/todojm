@@ -1,6 +1,6 @@
 .todo-list li label .description {
     word-break: break-all;
-    display: block;
+    /*display: block;*/
     line-height: 1.2;
     transition: color 0.4s;
     font-weight: 400;
@@ -19,7 +19,12 @@
 }
 
 .todo-list li label .created {
-    font-size: 13px;
+    font-size: 10px;
     color: gray;
 }
 
+.todo-list li label .description {
+    font-size: 13px;
+    color: gray;
+
+}

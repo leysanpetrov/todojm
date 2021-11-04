@@ -1,6 +1,8 @@
-.todo-list li label .description {
-    font-size: 13px;
-    color: gray;
+
+.timer-block {
+    display: flex;
+
+    /*flex-wrap: nowrap;*/
 }
 
 .todo-list li .icon-pause,
@@ -20,4 +22,20 @@
 
 .icon-play:after {
     content: '▶';
+    color: #af5b5e;
+}
+
+.timer-text {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 5px;
+    font-size: 13px;
+    color: gray;
+}
+
+.task-timer {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
